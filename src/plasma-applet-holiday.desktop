@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=Plasma Holiday
+Comment=Show holiday
+Type=Service
+ServiceTypes=Plasma/Applet
+ 
+X-KDE-Library=plasma_applet_holiday
+X-KDE-PluginInfo-Author=Apostolos Mpessas
+X-KDE-PluginInfo-Email=mpessas@gmail.com
+X-KDE-PluginInfo-Name=plasma_applet_holiday
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://plasma.kde.org/
+X-KDE-PluginInfo-Category=Date and Time
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
