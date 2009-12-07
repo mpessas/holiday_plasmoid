@@ -1,0 +1,3 @@
+- handle case where no locale is set
+- move code from constructor to init()
+- differentiate between public holidays and other holidays
