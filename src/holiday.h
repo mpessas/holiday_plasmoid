@@ -9,6 +9,7 @@ class Holiday
   public:
     Holiday(const QString& location);
     QString todaysHolidays() const;
+    QString tomorrowsHolidays() const;
 
   private:
     QString m_location;

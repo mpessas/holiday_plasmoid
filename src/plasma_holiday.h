@@ -17,7 +17,6 @@ class PlasmaHoliday : public Plasma::Applet
     void paintInterface(QPainter* painter,
                         const QStyleOptionGraphicsItem* option,
                         const QRect& contentsRect);
-    void init();
     
   private:
     QString m_holiday;

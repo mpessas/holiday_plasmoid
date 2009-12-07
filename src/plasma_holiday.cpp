@@ -13,18 +13,17 @@
 K_EXPORT_PLASMA_APPLET(holiday, PlasmaHoliday)
 
 PlasmaHoliday::PlasmaHoliday(QObject* parent, const QVariantList& args)
- : Plasma::Applet(parent, args)
+: Plasma::Applet(parent, args), m_holiday("Today:\t")
 {
     Holiday h("gr");
-    m_holiday = h.todaysHolidays(); 
+    m_holiday.append(h.todaysHolidays());
+    m_holiday.append("\nTomorrow:\t");
+    m_holiday.append(h.tomorrowsHolidays());
     setBackgroundHints(DefaultBackground);
-    resize(50,100);
+    resize(200,100);
 }
 
 PlasmaHoliday::~PlasmaHoliday()
-{}
-
-void PlasmaHoliday::init()
 {}
 
 void PlasmaHoliday::paintInterface(QPainter* p,
