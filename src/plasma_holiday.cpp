@@ -5,6 +5,7 @@
 #include <QRect>
 #include <QStringList>
 
+#include <klocale.h>
 #include <plasma/svg.h>
 #include <plasma/theme.h>
 
@@ -15,7 +16,8 @@ K_EXPORT_PLASMA_APPLET(holiday, PlasmaHoliday)
 PlasmaHoliday::PlasmaHoliday(QObject* parent, const QVariantList& args)
 : Plasma::Applet(parent, args), m_holiday("Today:\t")
 {
-    Holiday h("gr");
+    KLocale* locale = KGlobal::locale();
+    Holiday h(locale->country());
     m_holiday.append(h.todaysHolidays());
     m_holiday.append("\nTomorrow:\t");
     m_holiday.append(h.tomorrowsHolidays());
