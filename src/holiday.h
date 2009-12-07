@@ -4,6 +4,8 @@
 #include <QString>
 #include <QStringList>
 
+#include <kholidays/holidays.h>
+
 class Holiday
 {
   public:
@@ -12,7 +14,7 @@ class Holiday
     QString tomorrowsHolidays() const;
 
   private:
-    QString m_location;
+    KHolidays::HolidayRegion m_hr;
 };
 
 
