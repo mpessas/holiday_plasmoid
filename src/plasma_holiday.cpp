@@ -4,7 +4,6 @@
 #include <QSize>
 #include <QRect>
 #include <QStringList>
-#include <QTimer>
 
 #include <klocale.h>
 #include <plasma/svg.h>
@@ -15,7 +14,8 @@
 K_EXPORT_PLASMA_APPLET(holiday, PlasmaHoliday)
 
 PlasmaHoliday::PlasmaHoliday(QObject* parent, const QVariantList& args)
-: Plasma::Applet(parent, args), m_holiday("")
+        : Plasma::Applet(parent, args), m_holiday(""),
+          midnightTimer(this), firstTime(true)
 {
     setBackgroundHints(DefaultBackground);
     resize(200,100);
@@ -28,13 +28,15 @@ void PlasmaHoliday::init()
 {
     updateMsg();
     // set the timer to midnight so as to update the text
-    QDateTime now = QDateTime::currentDateTime();
-    QDateTime midnight(QDate(now.date().addDays(1)), QTime(0, 0));
-    QTimer::singleShot(now.secsTo(midnight) * 1000, this, SLOT(updateMsg()));
+    QTime now = QTime::currentTime();
+    QTime midnight(0, 0);
+    QTimer::singleShot(now.msecsTo(midnight), this, SLOT(updateMsg()));
 }
 
 void PlasmaHoliday::updateMsg()
 {
+    if (firstTime)
+        setMidnightTimer();
     KLocale* locale = KGlobal::locale();
     Holiday h(locale->country());
     m_holiday = "";
@@ -43,6 +45,15 @@ void PlasmaHoliday::updateMsg()
     m_holiday.append("\nTomorrow:\t");
     m_holiday.append(h.tomorrowsHolidays());
 }
+
+void PlasmaHoliday::setMidnightTimer() 
+{
+    QTime now = QTime::currentTime();
+    QTime midnight(0, 0);
+    midnightTimer.setInterval(now.msecsTo(midnight));
+    midnightTimer.start();
+    connect(&midnightTimer, SIGNAL(timeout()), this, SLOT(updateMsg()));
+}   
 
 void PlasmaHoliday::paintInterface(QPainter* p,
                              const QStyleOptionGraphicsItem* option,

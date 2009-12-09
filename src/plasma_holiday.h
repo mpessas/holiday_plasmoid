@@ -2,6 +2,7 @@
 #define PLASMA_HOLIDAY_H
 
 #include <QString>
+#include <QTimer>
 
 #include <Plasma/Applet>
 #include <Plasma/Svg>
@@ -19,11 +20,15 @@ class PlasmaHoliday : public Plasma::Applet
                         const QRect& contentsRect);
     void init();
 
-  public slots:
+  private slots:
     void updateMsg();
     
   private:
+    void setMidnightTimer();
+    
     QString m_holiday;
+    QTimer midnightTimer;
+    bool firstTime;
 };
 
 #endif
