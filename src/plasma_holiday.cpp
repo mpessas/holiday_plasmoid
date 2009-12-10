@@ -59,8 +59,7 @@ void PlasmaHoliday::paintInterface(QPainter* p,
                              const QStyleOptionGraphicsItem* option,
                              const QRect& contentsRect)
 {
-    p->setRenderHint(QPainter::SmoothPixmapTransform);
-    p->setRenderHint(QPainter::Antialiasing);
+    p->setRenderHint(QPainter::TextAntialiasing);
  
     p->save();
     p->drawText(contentsRect,
