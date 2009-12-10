@@ -28,9 +28,9 @@ void PlasmaHoliday::init()
 {
     updateMsg();
     // set the timer to midnight so as to update the text
-    QTime now = QTime::currentTime();
-    QTime midnight(0, 0);
-    QTimer::singleShot(now.msecsTo(midnight), this, SLOT(updateMsg()));
+    QDateTime now = QDateTime::currentDateTime();
+    QDateTime midnight(QDate(now.date().addDays(1)), QTime(0, 0));
+    QTimer::singleShot(now.secsTo(midnight) * 1000, this, SLOT(updateMsg()));
 }
 
 void PlasmaHoliday::updateMsg()
@@ -40,7 +40,7 @@ void PlasmaHoliday::updateMsg()
     KLocale* locale = KGlobal::locale();
     Holiday h(locale->country());
     m_holiday = "";
-    m_holiday.append("Today:\t");
+    m_holiday.append("Today:\t\t");
     m_holiday.append(h.todaysHolidays());
     m_holiday.append("\nTomorrow:\t");
     m_holiday.append(h.tomorrowsHolidays());
@@ -48,9 +48,9 @@ void PlasmaHoliday::updateMsg()
 
 void PlasmaHoliday::setMidnightTimer() 
 {
-    QTime now = QTime::currentTime();
-    QTime midnight(0, 0);
-    midnightTimer.setInterval(now.msecsTo(midnight));
+    QDateTime now = QDateTime::currentDateTime();
+    QDateTime midnight(QDate(now.date().addDays(1)), QTime(0, 0));
+    midnightTimer.setInterval(now.secsTo(midnight) * 1000);
     midnightTimer.start();
     connect(&midnightTimer, SIGNAL(timeout()), this, SLOT(updateMsg()));
 }   
@@ -64,7 +64,7 @@ void PlasmaHoliday::paintInterface(QPainter* p,
  
     p->save();
     p->drawText(contentsRect,
-                Qt::AlignVCenter | Qt::AlignHCenter,
+                Qt::AlignVCenter | Qt::AlignLeft,
                 m_holiday);
     p->restore();
 }
